@@ -25,6 +25,16 @@ b.on("message", function(address, msg) {
     log(msg);
 })
 
+const dateTimeConvert = (dateTime) => {
+    const currYear = dateTime.getFullYear();
+    const currMonth = ('0' + (dateTime.getMonth() + 1)).slice(-2)
+    const currDay = ('0' + (dateTime.getDate())).slice(-2);
+    const currHours = ('0' + (dateTime.getHours())).slice(-2);
+    const currMins = ('0' + (dateTime.getMinutes())).slice(-2);
+    const currSec = ('0' + (dateTime.getSeconds())).slice(-2);
+    return `${currYear}-${currMonth}-${currDay} ${currHours}:${currMins}:${currSec}`;
+
+}
 
 document.getElementById("input").onkeydown = function(e) {
     if (e.keyCode == 13) {
@@ -32,15 +42,9 @@ document.getElementById("input").onkeydown = function(e) {
             //get name
             const nameDisplay = document.getElementById("name-display").textContent;
             const name = (nameDisplay) ? nameDisplay : 'Anonymous';
-
+            //get time
             const currDateTime = new Date();
-            const currYear = currDateTime.getFullYear();
-            const currMonth = ('0' + (currDateTime.getMonth() + 1)).slice(-2)
-            const currDay = ('0' + (currDateTime.getDate())).slice(-2);
-            const currHours = ('0' + (currDateTime.getHours())).slice(-2);
-            const currMins = ('0' + (currDateTime.getMinutes())).slice(-2);
-            const currSec = ('0' + (currDateTime.getSeconds())).slice(-2);
-            const formattedDateTime = `${currYear}-${currMonth}-${currDay} ${currHours}:${currMins}:${currSec}`;
+            const formattedDateTime = dateTimeConvert(new Date());
             b.send(`${formattedDateTime} ${name}: ${e.target.textContent}`);
 
             e.target.textContent = "";

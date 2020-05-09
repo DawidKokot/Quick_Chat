@@ -27,3 +27,7 @@ pre {
 #input::before {
     content: "> "
 }
+
+#name-display::before {
+    content: "Your Name: ";
+}
